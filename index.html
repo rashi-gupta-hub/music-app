@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+
+    
+ <link rel="stylesheet" href="style.css"> 
+ <script src="https://kit.fontawesome.com/b26b7c6734.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div control class="container">
+        <div class="music-player">
+            <nav>                    
+                <div class="circle">
+                    <i class="fas fa-angle-left"></i> <!-- Updated the icon class to "fas" for Solid icons -->
+                </div>
+                <div class="circle">
+                    <i class="fas fa-bars"></i> <!-- Updated the icon class to "fas" for Solid icons -->
+                </div>
+            </nav>
+            <img src="/movieThumbnail.jpeg" class="song-img">
+            <h1>Udd Jaa Kaale Kaava</h1>
+            <p>Udit Narayan, Alka Yagnik</p>
+                
+            <audio id="song">
+                <source src="/song2.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fas fa-backward"></i></div> <!-- Updated the icon class to "fas" for Solid icons -->
+                <div onclick="playPause()">
+                    <i class="fas fa-play" id="ctrlIcon"></i> <!-- Updated the icon class to "fas" for Solid icons -->
+                </div>
+                <div><i class="fas fa-forward"></i></div> <!-- Updated the icon class to "fas" for Solid icons -->
+            </div>
+        </div>
+    </div>     
+
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+    
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+    
+        song.addEventListener("timeupdate", function() {
+            progress.value = song.currentTime;
+        });
+    
+        function playPause(){
+            if(ctrlIcon.classList.contains("fa-pause")){
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause");
+                ctrlIcon.classList.add("fa-play");
+            } else {
+                song.play();
+                ctrlIcon.classList.add("fa-pause");
+                ctrlIcon.classList.remove("fa-play");
+            }
+        }
+    
+        progress.oninput = function(){
+            song.currentTime = progress.value;
+        };
+    
+    
+
+    </script>
+</body>
+</html>
